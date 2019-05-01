@@ -76,8 +76,10 @@ function! s:on_exit_clean(...) dict abort
   if !empty(buf)
     call s:set_clean_variables(self.file, self.vcs)
   endif
-  if has_key(get(s:clean_jobs, 'self.vcs', {}), self.file)
-    call remove(s:clean_jobs[self.vcs], self.file)
+  if has_key(s:clean_jobs, 'self.vcs')
+    if has_key(get(s:clean_jobs, 'self.vcs', {}), self.file)
+      call remove(s:clean_jobs[self.vcs], self.file)
+    endif
   endif
 endfunction
 
